@@ -19,9 +19,10 @@
 #       in matrix.txt (right click and "Save Link/Target As..."), a 31K text file containing an 80 by 80 matrix.
 
 from numpy import inf
+from typing import List, Tuple
 
 
-def main(filename):
+def main(filename: str) -> Tuple[int, List[str]]:
     """
     Returns the minimal path sum in the given `filename`
       starting from the top-left cell and
@@ -32,7 +33,7 @@ def main(filename):
         filename (str): File name containing integer matrix
 
     Returns:
-        (int, list[str]):
+        (Tuple[int, List[str]]):
            Minimal path sum walking from top-left to bottom-right in matrix, stepping in any direction
 
     Raises:
@@ -61,7 +62,7 @@ def main(filename):
     n = len(m)
 
     # Grid to keep track of minimal sub-path sum ending at current point
-    grid_sum = [[inf for _ in range(n)] for _ in range(n)]
+    grid_sum: List[List[int]] = [[inf for _ in range(n)] for _ in range(n)]
     grid_sum[0][0] = m[0][0]
 
     # Grid to keep track of direction of previous cell in minimal paths
@@ -88,7 +89,7 @@ def main(filename):
             qy, qx = min_choice[:2]
             curr_elt = m[py][px]
             new_sum = grid_sum[qy][qx] + curr_elt
-            if grid_sum is None or new_sum < grid_sum[py][px]:
+            if grid_sum[py][px] is None or new_sum < grid_sum[py][px]:
                 # Update grid with new minimal sum
                 grid_sum[py][px] = new_sum
                 grid_dir[py][px] = min_choice[2]
